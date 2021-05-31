@@ -1,8 +1,8 @@
 package leetcode.easy;
 
-import javax.swing.text.html.parser.Entity;
-import java.net.Inet4Address;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Q1022 {
     static class TreeNode {

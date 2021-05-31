@@ -1,8 +1,5 @@
 package leetcode.easy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Q242 {
     public static void main(String[] args) {
         Q242 q = new Q242();
