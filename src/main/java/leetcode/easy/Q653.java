@@ -28,6 +28,7 @@ public class Q653 {
             if (r.left != null) queue.add(r.left);
             if (r.right != null) queue.add(r.right);
         }
+        System.out.println();
     }
     public static void main(String[] args) {
 //        String[] nums = {"5","3","6","2","4",null,"7"};
