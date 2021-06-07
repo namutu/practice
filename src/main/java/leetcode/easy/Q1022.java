@@ -21,7 +21,6 @@ public class Q1022 {
     class Pair {
         TreeNode node;
         int value;
-
         public Pair(TreeNode node, int value) {
             this.node = node;
             this.value = value;
