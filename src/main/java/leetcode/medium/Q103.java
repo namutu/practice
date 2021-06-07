@@ -25,6 +25,7 @@ public class Q103 {
         makeTree(nums, 0, root);
 
         List<List<Integer>> result = zigzagLevelOrder(root);
+        System.out.println(result.toString());
     }
     public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
@@ -34,7 +35,12 @@ public class Q103 {
         p.node = root;
         p.level = 0;
         bfs(p, result);
-        System.out.println("result : " + result.toString());
+        System.out.println(result.toString());
+        for(int i=0 ; i<result.size() ; i++) {
+            if (i % 2 != 0) {
+                Collections.reverse(result.get(i));
+            }
+        }
         return result;
     }
     static void bfs(NodePair root, List<List<Integer>> result) {
@@ -70,11 +76,7 @@ public class Q103 {
                     np.node = n.right;
                     queue.add(np);
                 }
-                if (level % 2 != 0) {
-                    System.out.println("level : " + level);
-                    System.out.println(subList.toString());
-                    Collections.sort(subList, Collections.reverseOrder());
-                }
+                System.out.println("level : " + level + ", " + subList.toString());
             }
         }
     }
