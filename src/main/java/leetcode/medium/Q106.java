@@ -16,28 +16,29 @@ public class Q106 {
         for(int i=0 ; i<inorder.length ; i++) {
             inorderIndexMap.put(inorder[i], i);
         }
-        int[] reversePost = new int[postorder.length];
-        for(int i=postorder.length-1 ; i>=0 ; i--) {
-            reversePost[postorder.length-1-i] = postorder[i];
-        }
+//        int[] reversePost = new int[postorder.length];
+//        for(int i=postorder.length-1 ; i>=0 ; i--) {
+//            reversePost[postorder.length-1-i] = postorder[i];
+//        }
+        postOrderIndex = postorder.length-1;
 
-        TreeNode result = setTreeArr(reversePost, 0, inorder.length-1);
+        TreeNode result = setTreeArr(postorder, 0, inorder.length-1);
 
         return result;
     }
-    static TreeNode setTreeArr(int[] reversePostOrder, int left, int right) {
+    static TreeNode setTreeArr(int[] postOrder, int left, int right) {
         //inorder left,root,right
         //postorder left,right,root
         if(right<left) return null;
 
 //        System.out.println("postIndex : " + postOrderIndex);
-        int rootValue = reversePostOrder[postOrderIndex++];
+        int rootValue = postOrder[postOrderIndex--];
         int rootIndex = inorderIndexMap.get(rootValue);
 
         TreeNode r = new TreeNode(rootValue);
 
-        r.right = setTreeArr(reversePostOrder, rootIndex+1, right);
-        r.left = setTreeArr(reversePostOrder, left, rootIndex-1);
+        r.right = setTreeArr(postOrder, rootIndex+1, right);
+        r.left = setTreeArr(postOrder, left, rootIndex-1);
         return r;
     }
     static class TreeNode {
