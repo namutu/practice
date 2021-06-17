@@ -1,5 +1,8 @@
 package leetcode.medium;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class ListNode {
     int val;
     ListNode next;
@@ -26,56 +29,62 @@ public class Q2 {
         ListNode l2n3 = new ListNode(4);
         l2n2.next = l2n3;
         l2n1.next = l2n2;
+//        ListNode l1n1 = new ListNode(0);
+//        ListNode l2n1 = new ListNode(1);
 
-        addTwoNumbers(l1n1, l2n1);
+        ListNode result = addTwoNumbers(l1n1, l2n1);
+        List<Integer> ll = new ArrayList<>();
+        dfs(result, ll);
+        System.out.println();
+        System.out.println(ll.toString());
+    }
+    public static void dfs(ListNode root, List<Integer> list) {
+        if(root.next == null) {
+            System.out.print(root.val + " ");
+            list.add(root.val);
+            return;
+        }
+        dfs(root.next, list);
+        System.out.print(root.val + " ");
+        list.add(root.val);
     }
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode result = new ListNode();
-
-        ListNode node1 = l1;
-        ListNode node2 = l2;
-        int node1Val = 0;
-        int node2Val = 0;
-        int add = 0;
-        int sumValue = 0;
-        ListNode temp = null;
-        boolean isFirst = true;
+        int carry = 0;
+        ListNode temp = result;
         while(true) {
-            System.out.println("l1 : " + node1.val + " l2 : " + node2.val);
-            if(node1.next == null && node2.next == null) {
-                System.out.println("node sum : " + (node1.val + node2.val + add));
-                ListNode sub = new ListNode(node1.val + node2.val + add);
-                temp.next = sub;
+            if (l1 != null || l2 != null) {
+                int l1Value = (l1==null) ? 0:l1.val;
+                int l2Value = (l2==null) ? 0:l2.val;
+                int sum = l1Value + l2Value + carry;
+                int sumValue = sum % 10;
+                carry = sum / 10;
+                System.out.println("l1 : " + l1Value + ", l2 : " + l2Value + ", carry : " + carry);
+                temp.next = new ListNode(sumValue);
+                temp = temp.next;
+                if(l1!=null) l1 = l1.next;
+                if(l2!=null) l2 = l2.next;
+            } else {
+                System.out.println("last carry : " + carry);
+                if(carry > 0) {
+                    temp.next = new ListNode(carry);
+                }
                 break;
             }
-            if(node1.next != null) {
-                node1Val = node1.val;
-                node1 = node1.next;
-            }
-            if(node2.next != null) {
-                node2Val = node2.val;
-                node2 = node2.next;
-            }
-            int nodeVal = (node1Val + node2Val);
-            if(nodeVal >= 10) {
-                sumValue = (nodeVal%10) + add;
-                add = nodeVal/10;
-            } else {
-                sumValue = (nodeVal+add);
-                add = 0;
-            }
-            System.out.println("node sum : " + sumValue);
-            if(isFirst) {
-                result.val = sumValue;
-                temp = result;
-            } else {
-                ListNode sub = new ListNode(sumValue);
-                temp.next = sub;
-                temp = sub;
-            }
         }
-        return result;
+        return result.next;
     }
+    public static void makeNodes(ListNode root, int index, List<Integer> list) {
+        if(list.size() == 1) {
+            root.val = list.get(index);
+            return;
+        }
+        if(index > list.size()-2) return;
+        root.val = list.get(index++);
+        root.next = new ListNode(list.get(index));
+        makeNodes(root.next, index, list);
+    }
+
 }
 
 
