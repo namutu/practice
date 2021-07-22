@@ -17,6 +17,11 @@ public class Q5 {
         String answer2 = longestPalindrome(s);
         end = System.currentTimeMillis();
         System.out.println("answer2 : " + answer2 + ", time : " + (end-start) + "ms");
+
+        String test = "qgjjgq";
+//        String test = "qgjjgqs";
+        boolean testResult = isPalindromeTwo(test.toCharArray());
+        System.out.println("result : " + testResult);
     }
 
     public static String longestPalindrome(String s) {
@@ -55,7 +60,8 @@ public class Q5 {
         while(lowIdx < sChars.length-1) {
             char[] check = Arrays.copyOfRange(sChars, lowIdx, highIdx);
 //            System.out.println("check : " + new String(check));
-            if(isPalindrme(check)) {
+            if(isPalindromeTwo(check)) {
+//                System.out.println("check : " + new String(check));
                 if(check.length > answer.length) answer = check;
 
                 if(sChars.length-lowIdx < answer.length) break;
@@ -71,7 +77,7 @@ public class Q5 {
         }
         return new String(answer);
     }
-    public static boolean isPalindrme(char[] chars) {
+    public static boolean isPalindromeOne(char[] chars) {
         Stack<Character> stack = new Stack<>();
 
         int mid = chars.length/2;
@@ -86,4 +92,35 @@ public class Q5 {
         }
         return true;
     }
+    public static boolean isPalindromeTwo(char[] chars) {
+//        System.out.println(new String(chars));
+        int mid = chars.length/2;
+//        System.out.println("mid : " + mid);
+        int left = mid;
+        int right = mid;
+        if(chars.length%2 == 0) left--;
+
+        while(right-left <= chars.length && left>=0 && right<chars.length) {
+//            System.out.println("char["+left+"] : " + chars[left] + ", char["+right+"] : " + chars[right]);
+            if(chars[left] != chars[right]) return false;
+            left--;
+            right++;
+        }
+
+        return true;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
