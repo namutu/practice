@@ -1,9 +1,9 @@
 package leetcode.medium;
 
-enum direction {
-    right, down, left, up
-}
 public class Q59 {
+    public enum direction {
+        right, down, left, up
+    }
     public static void main(String[] args) {
         int n = 4;
         int[][] result = generateMatrix(n);
