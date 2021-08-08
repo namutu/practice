@@ -1,113 +1,82 @@
 package leetcode.medium;
 
+import java.util.Arrays;
+
 public class Q59 {
-    public enum direction {
-        right, down, left, up
-    }
     public static void main(String[] args) {
+        int[][] nums = {{1,2,3},{4,5,6},{7,8,9}};
         int n = 4;
-        int[][] result = generateMatrix(n);
-        for(int i=0 ; i<n ; i++) {
-            for(int j=0 ; j<n ; j++) {
-                System.out.print(result[i][j] + " ");
-            }
-            System.out.println();
+        int[][] answer = generateMatrix(n);
+        for (int i=0 ; i<answer.length ; i++) {
+            System.out.println(Arrays.toString(answer[i]));
         }
     }
     public static int[][] generateMatrix(int n) {
-        int[][] result = new int[n][n];
-        int cnt = 1;
-        int[][] direc = {{0,1}, {1,0}, {0,-1}, {-1,0}};
-        int d = 0;
-        int row = 0;
-        int col = 0;
-        while(cnt <= n*n) {
-            result[row][col] = cnt++;
-            int r = Math.floorMod(row + direc[d][0], n);
-            int c = Math.floorMod(row + direc[d][1], n);
-
-            if(result[r][c] != 0) d = (d+1) % 4;
-
-            row += direc[d][0];
-            col += direc[d][1];
+        int[][] answer = new int[n][n];
+        if(n == 1) {
+            answer[0][0] = 1;
+            return answer;
+        }
+        int[][] nums = new int[n][n];
+        int count = 1;
+        for(int i=0 ; i<nums.length ; i++) {
+            for(int j=0 ; j<nums[i].length ; j++) {
+                nums[i][j] = count;
+                count++;
+            }
         }
 
-        return result;
+        boolean[][] visited = new boolean[n][n];
+        int maxNum = n*n;
+        int num = 1;
+        int x = 0;
+        int y = 0;
+        direction direc = direction.right;
+        // right, down, left, up
+        while (num <= maxNum) {
+//            System.out.println("x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+            if(x<n && x>=0 && y>=0 && y<n && visited[x][y] == false) {
+//                System.out.println("in x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+                answer[x][y] = num;
+                num++;
+                visited[x][y] = true;
+                if(direc == direction.right) y++;
+                if(direc == direction.down) x++;
+                if(direc == direction.left) y--;
+                if(direc == direction.up) x--;
+            } else {
+//                System.out.println("other x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+                if(direc == direction.right) {
+//                    System.out.println("right x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+                    direc = direction.down;
+                    y--;
+                    x++;
+                } else if(direc == direction.down) {
+//                    System.out.println("down x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+                    direc = direction.left;
+                    x--;
+                    y--;
+                } else if(direc == direction.left) {
+//                    System.out.println("left x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+                    direc = direction.up;
+                    x--;
+                    y++;
+                } else if(direc == direction.up) {
+//                    System.out.println("up x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+                    direc = direction.right;
+                    x++;
+                    y++;
+                }
+            }
+        }
+
+        return answer;
     }
-    private static int count = 1;
-    public static void makeNumbers(direction direc, int[][] result, boolean[][] visited, int n, int col, int row) {
-        System.out.println("direction : " + direc.ordinal());
-        if(count > n*n) return;
-        if(col < 0) {col++; direc = selectDirection(direc, visited, n, col, row);}
-        if(row < 0) {row++; direc = selectDirection(direc, visited, n, col, row);}
-        if(col > n-1) {col--; direc = selectDirection(direc, visited, n, col, row);}
-        if(row > n-1) {row--; direc = selectDirection(direc, visited, n, col, row);}
-        visited[col][row] = true;
-        result[col][row] = count++;
-        if(direc.ordinal() == 0) {
-            System.out.println("right ");
-            row++;
-            makeNumbers(direc, result, visited, n, col, row);
-        } else if(direc.ordinal() == 1) {
-            System.out.println("down ");
-            col++;
-            makeNumbers(direc, result, visited, n, col, row);
-        } else if(direc.ordinal() == 2) {
-            System.out.println("left ");
-            row--;
-            makeNumbers(direc, result, visited, n, col, row);
-        } else if(direc.ordinal() == 3) {
-            System.out.println("up ");
-            col--;
-            makeNumbers(direc, result, visited, n, col, row);
-        }
-    }
 
-    private static direction selectDirection(direction direc, boolean[][] visited, int n, int col, int row) {
-        System.out.println("col : " + col + ", row : " + row + ", count : " + count + ", direction : " + direc.ordinal());
-        if(direc.ordinal() == 0) return direction.down;
-        if(direc.ordinal() == 1) return direction.left;
-        if(direc.ordinal() == 2) return direction.up;
-        if(direc.ordinal() == 3) return direction.right;
-//        if(row+1 < n && visited[col][row+1] == true) return direction.right;
-//        if(col+1 < n && visited[col+1][row] == true) return direction.down;
-//        if(row-1 >= 0 && visited[col][row-1] == true) return direction.left;
-//        if(col-1 >= 0 && visited[col-1][row] == true) return direction.up;
-        return direction.right;
-    }
-
-    public static void setNumbers(int[][] result, boolean[][] visited, int n, int col, int row) {
-        if(count > n*n) {
-            return;
-        }
-        visited[col][row] = true;
-        result[col][row] = count;
-        count++;
-        if (row < n-1 && visited[col][row + 1] == false) {
-            setNumbers(result, visited, n, col, row + 1);
-        }
-        if (col < n-1 && visited[col + 1][row] == false) {
-            setNumbers(result, visited, n, col + 1, row);
-        }
-        if (row > 0 && visited[col][row - 1] == false) {
-            setNumbers(result, visited, n, col, row - 1);
-        }
-        if (col > 0 && visited[col - 1][row] == false) {
-            setNumbers(result, visited, n, col - 1, row);
-        }
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
+enum direction {
+    right, down, left, up
+}
 
 
 
