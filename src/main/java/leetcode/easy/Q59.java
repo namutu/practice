@@ -34,9 +34,9 @@ public class Q59 {
         direction direc = direction.right;
         // right, down, left, up
         while (num <= maxNum) {
-            System.out.println("x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+//            System.out.println("x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
             if(x<n && x>=0 && y>=0 && y<n && visited[x][y] == false) {
-                System.out.println("in x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+//                System.out.println("in x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
                 answer[x][y] = num;
                 num++;
                 visited[x][y] = true;
@@ -45,24 +45,24 @@ public class Q59 {
                 if(direc == direction.left) y--;
                 if(direc == direction.up) x--;
             } else {
-                System.out.println("other x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+//                System.out.println("other x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
                 if(direc == direction.right) {
-                    System.out.println("right x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+//                    System.out.println("right x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
                     direc = direction.down;
                     y--;
                     x++;
                 } else if(direc == direction.down) {
-                    System.out.println("down x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+//                    System.out.println("down x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
                     direc = direction.left;
                     x--;
                     y--;
                 } else if(direc == direction.left) {
-                    System.out.println("left x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+//                    System.out.println("left x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
                     direc = direction.up;
                     x--;
                     y++;
                 } else if(direc == direction.up) {
-                    System.out.println("up x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
+//                    System.out.println("up x : " + x + ", y : " + y + ", num : " + num + ", direc : " + direc);
                     direc = direction.right;
                     x++;
                     y++;
