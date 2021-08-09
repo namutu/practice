@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Q59 {
     public static void main(String[] args) {
         int[][] nums = {{1,2,3},{4,5,6},{7,8,9}};
-        int n = 4;
+        int n = 14;
         int[][] answer = generateMatrix(n);
         for (int i=0 ; i<answer.length ; i++) {
             System.out.println(Arrays.toString(answer[i]));
