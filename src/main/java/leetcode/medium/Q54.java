@@ -40,20 +40,16 @@ public class Q54 {
             } else {
                 if(direc == direct.right) {
                     direc = direct.down;
-                    y++;
-                    x--;
+                    x--; y++;
                 } else if(direc == direct.down) {
                     direc = direct.left;
-                    y--;
-                    x--;
+                    x--; y--;
                 } else if(direc == direct.left) {
                     direc = direct.up;
-                    y--;
-                    x++;
+                    x++; y--;
                 } else if(direc == direct.up) {
                     direc = direct.right;
-                    y++;
-                    x++;
+                    x++; y++;
                 }
             }
         }
