@@ -26,10 +26,6 @@ public class Q54 {
         int x = 0;
         int y = 0;
         boolean[][] visited = new boolean[rowLength][colLength];
-        for(int i=0 ; i<visited.length ; i++) {
-            System.out.println(Arrays.toString(visited[i]));
-        }
-        System.out.println("?? " + visited[0][3]);
         direct direc = direct.right;
         while (index <= max) {
             System.out.println("x : " + x + ", y : " + y + ", index : " + index);
