@@ -43,12 +43,10 @@ public class Q67 {
             int sum = aVal + bVal + carry;
             if(sum > 1) {
                 carry = 1;
-                sum = sum%2;
-                sb.append(sum);
+                sb.append(sum%2);
             } else {
                 carry = 0;
-                sum = sum%2;
-                sb.append(sum);
+                sb.append(sum%2);
             }
         }
         System.out.println("answer : " + sb.toString());
